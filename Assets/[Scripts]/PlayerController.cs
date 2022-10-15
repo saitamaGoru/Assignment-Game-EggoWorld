@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
     [Header("Movement Properties")]
     public float speed = 2f;
-   
+    public bool isJumping = false;
     public float force = 2f;
     public float jumpForce = 2f;
     public float airFactor = 0.5f;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         player = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+       
     }
 
     // Update is called once per frame
@@ -77,16 +79,21 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         float y = Input.GetAxisRaw("Jump");
-        if ((isGrounded) && y > 0.0f)
-        {
-            player.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetInteger("AnimationState", 2);
-
-        }   
+     if (isGrounded && y>0.0f)
+     {
+         isJumping = true;
+         player.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+         animator.SetInteger("AnimationState", 2);
+     }
     }
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundPoint.position, radius);
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.name == "Ground Tiles")
+            isJumping = false;
     }
 }
