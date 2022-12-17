@@ -8,8 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class DeathSpikes : MonoBehaviour
 {
-
+  
     public float timer = 0; //under process
+
+  
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.name == "Player")
@@ -20,7 +22,7 @@ public class DeathSpikes : MonoBehaviour
            PlayerController player = FindObjectOfType<PlayerController>();
             player.animator.SetInteger("AnimationState", 4);
             Debug.Log("Player Died");
-           
+            
              Destroy(player.gameObject,5f);
 
             

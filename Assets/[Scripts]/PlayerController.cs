@@ -22,13 +22,12 @@ public class PlayerController : MonoBehaviour
    internal Animator animator;
     Rigidbody2D player;
 
-    AudioSource clip;
+   
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        clip = GetComponent<AudioSource>();
-        
+       
        
     }
 
@@ -91,6 +90,8 @@ public class PlayerController : MonoBehaviour
         
          player.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
          animator.SetInteger("AnimationState", 2);
+          
+
      }
     }
     public void OnDrawGizmos()
